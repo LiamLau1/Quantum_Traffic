@@ -1,0 +1,10 @@
+*.log
+*.tex
+*.aux
+*.synctex.gz
+*.pyc
+*.pyo
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+__pycache__/
+*.mp4
