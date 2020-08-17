@@ -31,10 +31,16 @@ def analytic_current(ka, t, phi, L):
     J = 2*t*np.sin(ka + 2*np.pi*phi/L)
     return J
 
-def numerical_current(state, i, t, phi, L):
+def numerical_current(state, i, t, phi, L, particle_list, A_dagger_list, A_list):
     """Defining the current from site i to i+1 to be positive"""
-    current = -2 * t * np.imag(e^{-1j*2*np.pi * phi/L} * expectation(state, matrix_representation(a_dagger, i+1, L)@ matrix_representation(a, i, L)))
-    return current
+    if i in range(0, L+1):
+        particle_index_i = list(find_particle_indices(particle_list,L))
+        particle_index_j = [[j] for j in particle_index_i]
+        #current = -2 * t * np.imag(np.exp(-1j*2*np.pi * phi/L) * expectation(state, ((matrix_representation(a_dagger, np.mod(i+1,L), L)@ matrix_representation(a, i, L)).todense())[particle_index_i, particle_index_j]))
+        current = -2 * t * np.imag(np.exp(-1j*2*np.pi * phi/L) * expectation(state, (A_dagger_list[np.mod(i+1,L)] @ A_list[i]).todense()[particle_index_i, particle_index_j]))
+    else:
+        print("Please enter a site number from 1 to L")
+    return np.asscalar(current)
 
 def kron_rec(c,n):
     """Recursive function which returns the kronecker product of itself n times"""
@@ -69,5 +75,5 @@ def find_particle_indices(particle_list, L):
                     elif combinations[j] != range(L)[-1]:
                         K = np.kron(K,kron_rec(a,L - combinations[j] -1))
                 particle_indices.append(np.squeeze(np.nonzero(K)))
-    return np.sort(particle_indices)
+    return particle_indices
         
