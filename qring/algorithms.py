@@ -43,6 +43,15 @@ def numerical_current(state, i, t, phi, L, particle_list):
         print("Please enter a site number from 1 to L")
     return np.asscalar(current)
 
+def numerical_density(state,i,t,phi,L,particle_list):
+    """Function that outputs the occuption at site i for the ground state"""
+    A_list = [matrix_representation(a, n+1, L) for n in range(L)]
+    A_dagger_list = [matrix_representation(a_dagger, n+1, L) for n in range(L)]
+    particle_index_i = list(find_particle_indices(particle_list,L))
+    particle_index_j = [[j] for j in particle_index_i]
+    density = expectation(state, (A_dagger_list[i] @ A_list[i]).todense()[particle_index_i,particle_index_j])
+    return np.asscalar(density)
+
 def kron_rec(c,n):
     """Recursive function which returns the kronecker product of itself n times"""
     if n ==1:
