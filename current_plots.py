@@ -8,7 +8,7 @@ t = 1
 # Plot of variation of current with flux
 L = 3
 phi_list = np.linspace(0,1.5,1000)
-particle_list = [1]
+particle_list = [2]
 ground_current_list_1 = [ground_state_current(0,t,phi,phi_value,particle_list) for phi_value in phi_list]
 ground_current_list_2 = [ground_state_current(1,t,phi,phi_value,particle_list) for phi_value in phi_list]
 ground_current_list_3 = [ground_state_current(2,t,phi,phi_value,particle_list) for phi_value in phi_list]
@@ -65,7 +65,7 @@ plt.legend()
 ##################################################################
 # Log-log plot of ground state current with number of sites 
 phi = 0.49999999
-L_list = np.arange(2,14,1)
+L_list = np.arange(7,14,1)
 ground_current_list_1 = [ground_state_current(0,t,phi,L_value,particle_list) for L_value in L_list]
 ground_current_list_2 = [ground_state_current(1,t,phi,L_value,particle_list) for L_value in L_list]
 #ground_current_list_3 = [ground_state_current(2,t,phi,L_value,particle_list) for L_value in L_list]
@@ -113,3 +113,5 @@ plt.legend()
 #plt.legend(bbox_to_anchor=(0.64, 0.15))
 fig.tight_layout()
 #plt.savefig('./plots/site1_quench_phi01.pdf')
+
+current_gradual_perturbation(1,0,1, t, phi, L, particle_list)

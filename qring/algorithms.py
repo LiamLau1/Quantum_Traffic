@@ -1,3 +1,4 @@
+from numba import complex128, float64, int32, jit
 import numpy as np
 import itertools
 from scipy import sparse
@@ -7,6 +8,7 @@ from scipy import linalg
 a = sparse.csr_matrix(np.matrix([[0,1],[0,0]]))
 a_dagger = sparse.csr_matrix(np.matrix([[0,0],[1,0]]))
 
+#@jit(complex128[:,:](complex128[:,:],int32,int32))
 def matrix_representation(matrix, n, L):
     """Function to create the whole space matrix representation for an operator on the nth site from the local matrix representation by performing the tensor product with identities on the other sites and the local matrix at the nth site."""
     if n!= 1:
